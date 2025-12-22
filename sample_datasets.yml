@@ -1,0 +1,20 @@
+- id: fields-of-the-world
+  name: Fields of the World
+  size_gb: 120
+  format: cog
+  description: a ML benchmark dataset for segmentation of agricultural field boundaries
+  url: https://fieldsofthe.world
+
+- id: overture
+  name: Overture Maps
+  size_gb: 551
+  format: geoparquet
+  description: free and open vector map data normalized to a single schema
+  url: https://overturemaps.org
+
+- id: mapterhorn
+  name: Mapterhorn
+  size_gb: 2927
+  format: pmtiles
+  description: A global, tiled terrain model for web visualization
+  url: https://mapterhorn.com

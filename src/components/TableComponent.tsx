@@ -73,9 +73,15 @@ function TableComponent(props: { providers: Provider[] }) {
 	});
 
 	return (
-		<div>
-			<table class="table-auto border-separate border-spacing-x-2">
-				<thead>
+		<div
+			class="
+				overflow-x-auto rounded-xl border
+				border-gray-200 bg-white shadow-sm
+				dark:border-gray-800 dark:bg-gray-950
+			"
+		>
+			<table class="w-full border-collapse text-sm">
+				<thead class="bg-gray-50 dark:bg-gray-900">
 					<For each={table.getHeaderGroups()}>
 						{(headerGroup) => (
 							<tr>
@@ -83,16 +89,24 @@ function TableComponent(props: { providers: Provider[] }) {
 									{(header) => (
 										<th
 											onClick={header.column.getToggleSortingHandler()}
-											class="cursor-pointer"
+											class="
+												select-none px-4 py-3 text-left font-semibold
+												text-gray-700 hover:bg-gray-100 cursor-pointer
+												dark:text-gray-200 dark:hover:bg-gray-800
+											"
 										>
-											{flexRender(
-												header.column.columnDef.header,
-												header.getContext(),
-											)}
-											{{
-												asc: " 🔼",
-												desc: " 🔽",
-											}[header.column.getIsSorted() as string] ?? ""}
+											<div class="flex items-center gap-1">
+												{flexRender(
+													header.column.columnDef.header,
+													header.getContext(),
+												)}
+												<span class="text-xs text-gray-400 dark:text-gray-500">
+													{{
+														asc: "▲",
+														desc: "▼",
+													}[header.column.getIsSorted() as string] ?? ""}
+												</span>
+											</div>
 										</th>
 									)}
 								</For>
@@ -100,13 +114,24 @@ function TableComponent(props: { providers: Provider[] }) {
 						)}
 					</For>
 				</thead>
-				<tbody>
+
+				<tbody class="divide-y divide-gray-100 dark:divide-gray-800">
 					<For each={table.getRowModel().rows}>
 						{(row) => (
-							<tr>
+							<tr
+								class="
+									transition-colors
+									hover:bg-gray-50 dark:hover:bg-gray-900
+								"
+							>
 								<For each={row.getVisibleCells()}>
 									{(cell) => (
-										<td>
+										<td
+											class="
+												px-4 py-3 align-middle
+												text-gray-800 dark:text-gray-100
+											"
+										>
 											{flexRender(
 												cell.column.columnDef.cell,
 												cell.getContext(),

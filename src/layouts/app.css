@@ -11,3 +11,10 @@
 body {
 	font-family: "Quattro Regular", sans-serif;
 }
+
+@media (prefers-color-scheme: dark) {
+	body {
+		background: rgb(29, 35, 43);
+		color: rgb(213, 218, 227);
+	}
+}

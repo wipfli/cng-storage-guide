@@ -6,21 +6,95 @@ import TableComponent from "../components/TableComponent.tsx";
 import Layout from "../layouts/Layout.astro";
 
 const providers = await getCollection("providers");
+const datasets = await getCollection("datasets");
 ---
 
 <Layout>
-	<h1 class="text-3xl font-bold my-8">
-		Cloud-Native Geospatial Storage Cheatsheet
-	</h1>
-	<div class="prose">
-		<Content/>	
+	<div class="pb-16">
+		<h1 class="text-3xl font-bold mt-4 mb-2">
+			Cloud-Native Geospatial Storage Cheatsheet
+		</h1>
+
+		<p class="mb-6 text-gray-700 dark:text-gray-300">
+			A collaboratively maintained comparison tool for cloud storage.
+			<a
+				href="https://github.com/bdon/cng-storage-guide"
+				class="underline hover:text-blue-600 dark:hover:text-blue-400"
+			>Code on GitHub</a>
+		</p>
+
+		<div
+			class="
+				mb-6 rounded-xl border border-gray-200 bg-gray-50
+				p-4 shadow-sm
+				dark:border-gray-800 dark:bg-gray-900
+			"
+		>
+			<dl class="divide-y divide-gray-100 dark:divide-gray-800">
+				<div class="py-2">
+					<dt class="text-base font-medium text-gray-800 dark:text-gray-100">
+						Cloud Native Geospatial
+					</dt>
+					<dd class="mt-1 text-sm leading-snug text-gray-600 dark:text-gray-400">
+						The
+						<a
+							href="https://guide.cloudnativegeo.org"
+							class="underline hover:text-blue-600 dark:hover:text-blue-400"
+						>Cloud Native Geospatial Formats Guide</a>
+						is a tutorial on Cloud-Optimized GeoTIFF, GeoParquet, and more.
+					</dd>
+				</div>
+
+				<div class="py-2">
+					<dt class="text-base font-medium text-gray-800 dark:text-gray-100">
+						Source Cooperative
+					</dt>
+					<dd class="mt-1 text-sm leading-snug text-gray-600 dark:text-gray-400">
+						Source Coop is a publishing utility for open data. Learn how to use
+						the S3-compatible API in
+						<a
+							href="https://docs.source.coop/data-proxy"
+							class="underline hover:text-blue-600 dark:hover:text-blue-400"
+						>the documentation.</a>
+					</dd>
+				</div>
+			</dl>
+		</div>
+
+		<dl class="mb-6 divide-y divide-gray-100 dark:divide-gray-800">
+			<div class="py-2">
+				<dt class="text-base font-medium text-gray-800 dark:text-gray-100">
+					Egress
+				</dt>
+				<dd class="mt-1 text-sm leading-snug text-gray-600 dark:text-gray-400">
+					Cost for moving data outside the provider's cloud to the Internet, such as other cloud platforms or end users. If you stay within the provider's cloud region, like reading a COG from S3 to EC2 instance, this is usually free.
+				</dd>
+			</div>
+
+			<div class="py-2">
+				<dt class="text-base font-medium text-gray-800 dark:text-gray-100">
+					Transactions
+				</dt>
+				<dd class="mt-1 text-sm leading-snug text-gray-600 dark:text-gray-400">
+					Costs for the quantity of HTTP requests. Unlike egress, this applies within a single cloud platform. Providers usually price read (GET) and write (PUT, POST) operations differently.
+				</dd>
+			</div>
+		</dl>
+
+		<h2 class="text-2xl font-bold mb-3">Cost Estimate</h2>
+		<div class="mb-6">
+			<CostComponent
+				client:only="solid-js"
+				providers={providers}
+				datasets={datasets}
+			/>
+		</div>
+
+		<h2 class="text-2xl font-bold mb-3">Pricing Table</h2>
+		<TableComponent client:only="solid-js" providers={providers} />
+
+		<p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+			Free account-level allowances are not included.
+		</p>
 	</div>
-	<h2 class="text-2xl font-bold my-4">Cost Estimate</h2>
-	<CostComponent client:only="solid-js" providers={providers}/>
-	<h2 class="text-2xl font-bold my-4">Pricing Table</h2>
-	<TableComponent client:only="solid-js" providers={providers}/>
-	
-	<p>
-		Free account-level allowances are not included. 
-	</p>
 </Layout>
