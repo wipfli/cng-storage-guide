@@ -13,7 +13,7 @@ const inlineNumberInput = `
 	dark:focus:ring-blue-400
 `;
 
-function CostComponent(props: { providers: Provider[], datasets: Dataset[] }) {
+function CostComponent(props: { providers: Provider[]; datasets: Dataset[] }) {
 	const providers = props.providers;
 	const datasets = props.datasets;
 
@@ -25,7 +25,7 @@ function CostComponent(props: { providers: Provider[], datasets: Dataset[] }) {
 		datasets[0],
 	);
 
-	const [chooseSize, setChooseSize] = createSignal<bool>(false);
+	const [chooseSize, setChooseSize] = createSignal<boolean>(false);
 	const [customSizeGb, setCustomSizeGb] = createSignal<number>(100);
 	const [chunkSizeMb, setChunkSizeMb] = createSignal<number>(5);
 
@@ -34,11 +34,9 @@ function CostComponent(props: { providers: Provider[], datasets: Dataset[] }) {
 			return customSizeGb();
 		}
 		return selectedDataset().data.size_gb;
-	}
+	};
 
-	const selectDataset: JSX.EventHandler<HTMLSelectElement, Event> = (
-		event,
-	) => {
+	const selectDataset: JSX.EventHandler<HTMLSelectElement, Event> = (event) => {
 		const slug = event.currentTarget.value;
 		setChooseSize(slug === "choose");
 		const selected = datasets.find((item: Dataset) => item.id === slug);
@@ -80,7 +78,9 @@ function CostComponent(props: { providers: Provider[], datasets: Dataset[] }) {
 				>
 					<For each={props.datasets}>
 						{(dataset) => (
-							<option value={dataset.id}>{dataset.data.name}: {dataset.data.size_gb} GB</option>
+							<option value={dataset.id}>
+								{dataset.data.name}: {dataset.data.size_gb} GB
+							</option>
 						)}
 					</For>
 					<option value="choose">Choose size...</option>
@@ -96,7 +96,6 @@ function CostComponent(props: { providers: Provider[], datasets: Dataset[] }) {
 				</Show>
 
 				<span class="text-base text-gray-700 dark:text-gray-300">GB</span>
-
 
 				<span>on</span>
 
@@ -134,10 +133,7 @@ function CostComponent(props: { providers: Provider[], datasets: Dataset[] }) {
 						Total storage cost
 					</dt>
 					<dd class="text-sm font-medium text-gray-900 dark:text-gray-100 tabular-nums">
-						{(
-							selectedProvider().data.cost_per_gb_stored *
-							sizeGb()	
-						).toFixed(2)}
+						{(selectedProvider().data.cost_per_gb_stored * sizeGb()).toFixed(2)}
 						{selectedProvider().data.currency}
 					</dd>
 				</div>
@@ -147,10 +143,7 @@ function CostComponent(props: { providers: Provider[], datasets: Dataset[] }) {
 						Egress cost of one copy
 					</dt>
 					<dd class="text-sm font-medium text-gray-900 dark:text-gray-100 tabular-nums">
-						{(
-							selectedProvider().data.cost_per_gb_egress *
-							sizeGb()
-						).toFixed(2)}
+						{(selectedProvider().data.cost_per_gb_egress * sizeGb()).toFixed(2)}
 						{selectedProvider().data.currency}
 					</dd>
 				</div>
@@ -177,7 +170,7 @@ function CostComponent(props: { providers: Provider[], datasets: Dataset[] }) {
 					</dd>
 				</div>
 			</dl>
-		</div>	
+		</div>
 	);
 }
 
