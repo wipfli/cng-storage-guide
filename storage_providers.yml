@@ -33,7 +33,7 @@
 - name: OVH Cloud
   slug: ovh-cloud
   cost_per_gb_stored: 0.0081103
-  cost_per_gb_egress: 0.011
+  cost_per_gb_egress: 0
   cost_per_1k_gets: 0
   currency: USD
   pricing_page: https://us.ovhcloud.com/public-cloud/prices/
